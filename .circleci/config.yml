@@ -17,10 +17,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: "run scan"
-          command: docker run -e DOJOKEY='a9daec6197fe1c6b030cfc7f8495f1f8ef260165' \
-                  -e DOJOIP='35.219.3.32:8080' \
-                  -e PRODNAME='Gronit' --rm -v "$(pwd):/proj" cyberkru/trufflehog-dojo
-
+          
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
