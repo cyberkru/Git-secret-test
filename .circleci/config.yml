@@ -9,7 +9,11 @@ jobs:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: false
-      - run: docker run -e DOJOKEY=${DOJOKEY} -e DOJOIP=${DOJOIP} -e PRODNAME='Gronit' --rm  -v `pwd`:'/proj' -w `pwd` cyberkru/trufflehog-dojo
+      - run:
+          command: |
+            mkdir /tmp/project
+            git clone https://github.com/cyberkru/Git-secret-test.git /tmp/project
+            docker run -e DOJOKEY=${DOJOKEY} -e DOJOIP=${DOJOIP} -e PRODNAME='Gronit' --rm  -v /tmp/project:/proj  cyberkru/trufflehog-dojo
       
 workflows:
   build_test_deploy:
