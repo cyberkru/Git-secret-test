@@ -8,8 +8,8 @@ jobs:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: false
-      - run: docker run -e DOJOKEY=${DOJOKEY} -e DOJOIP=${DOJOIP} -e PRODNAME='Gronit' --rm -v ~/repo:/proj cyberkru/trufflehog-dojo
-      
+      #- run: docker run -e DOJOKEY=${DOJOKEY} -e DOJOIP=${DOJOIP} -e PRODNAME='Gronit' --rm -v ~/repo:/proj cyberkru/trufflehog-dojo
+      - run: pwd
 workflows:
   build_test_deploy:
     jobs:
