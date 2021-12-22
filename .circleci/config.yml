@@ -4,14 +4,14 @@ jobs:
     docker:
       - image: circleci/python:3.7.4
         user: root
-    working_directory: /proj
+    #working_directory: /proj
     steps:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: false
       - run:
           command: |
-            docker create -v /app --name appcon alpine:3.4 /bin/true
+            docker create -v /proj --name appcon alpine:3.4 /bin/true
             docker cp $PWD appcon:/proj
             docker run -e DOJOKEY=${DOJOKEY} -e DOJOIP=${DOJOIP} -e PRODNAME='Gronit' --rm  --volumes-from appcon  cyberkru/trufflehog-dojo
             
