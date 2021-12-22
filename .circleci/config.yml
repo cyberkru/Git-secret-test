@@ -11,8 +11,10 @@ jobs:
           docker_layer_caching: false
       - run:
           command: |
-            docker run -e DOJOKEY=${DOJOKEY} -e DOJOIP=${DOJOIP} -e PRODNAME='Gronit' --rm  -v `pwd`:/proj  cyberkru/trufflehog-dojo
+            pwd
             ls -la
+           # docker run -e DOJOKEY=${DOJOKEY} -e DOJOIP=${DOJOIP} -e PRODNAME='Gronit' --rm  -v `pwd`:/proj  cyberkru/trufflehog-dojo
+            
 workflows:
   build_test_deploy:
     jobs:
