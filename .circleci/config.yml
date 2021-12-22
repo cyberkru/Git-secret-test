@@ -11,9 +11,9 @@ jobs:
           docker_layer_caching: false
       - run:
           command: |
-            pwd
-            ls -la
-            docker run -e DOJOKEY=${DOJOKEY} -e DOJOIP=${DOJOIP} -e PRODNAME='Gronit' --rm  -v '/proj:/proj'  cyberkru/trufflehog-dojo
+            docker create -v /app --name appcon alpine:3.4 /bin/true
+            docker cp $PWD appcon:/proj
+            docker run -e DOJOKEY=${DOJOKEY} -e DOJOIP=${DOJOIP} -e PRODNAME='Gronit' --rm  --volumes-from appcon  cyberkru/trufflehog-dojo
             
 workflows:
   build_test_deploy:
