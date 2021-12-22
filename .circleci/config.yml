@@ -6,9 +6,9 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker:
-          docker_layer_caching: true
-      - run: docker run -e DOJOKEY=${DOJOKEY} -e DOJOIP=${DOJOIP} -e PRODNAME='Gronit' --rm -v "$(pwd):/proj" cyberkru/trufflehog-dojo
-      
+          docker_layer_caching: false
+      #- run: docker run -e DOJOKEY=${DOJOKEY} -e DOJOIP=${DOJOIP} -e PRODNAME='Gronit' --rm -v "$(pwd):/proj" cyberkru/trufflehog-dojo
+      - run: ls -la
 workflows:
   build_test_deploy:
     jobs:
