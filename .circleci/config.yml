@@ -3,7 +3,7 @@ jobs:
   build_test:
     docker:
       - image: circleci/python:3.7.4
-        user: root
+        #user: root
     #working_directory: /proj
     steps:
       - checkout
