@@ -20,7 +20,6 @@ jobs:
       - image: circleci/python:3.7.4
     steps:
       - run:
-          override:- >-
             docker run -e SONARTOKEN=${SONARTOKEN} 
             -e ORGANIZATION=${SONAR_ORGANIZATION} 
             -e COMPONENTKEY=${LENDING_KEY} 
@@ -31,9 +30,9 @@ jobs:
 workflows:
   build_test_deploy:
     jobs:
-      - cred_scan:
-          context:
-          - Scan_Env
+      # - cred_scan:
+      #     context:
+      #     - Scan_Env
       - sonar_dojo:
           context:
           - Scan_Env
