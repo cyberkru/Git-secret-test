@@ -20,13 +20,14 @@ jobs:
       - image: circleci/python:3.7.4
     steps:
       - run:
-          docker run -e SONARTOKEN=${SONARTOKEN} \
-          -e ORGANIZATION=${SONAR_ORGANIZATION} \
-          -e COMPONENTKEY=${LENDING_KEY} \
-          -e DOJOKEY=${DOJOKEY} \
-          -e DOJOIP=${DOJOIP} \
-          -e PRODNAME=${LENDING_PRODNAME} \
-          cyberkru/sonar-report
+          override:- >-
+            docker run -e SONARTOKEN=${SONARTOKEN} \
+            -e ORGANIZATION=${SONAR_ORGANIZATION} \
+            -e COMPONENTKEY=${LENDING_KEY} \
+            -e DOJOKEY=${DOJOKEY} \
+            -e DOJOIP=${DOJOIP} \
+            -e PRODNAME=${LENDING_PRODNAME} \
+            cyberkru/sonar-report
 workflows:
   build_test_deploy:
     jobs:
