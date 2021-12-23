@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  build_test:
+  cred_scan:
     docker:
       - image: circleci/python:3.7.4
         #user: root
@@ -14,10 +14,25 @@ jobs:
             docker create -v /proj --name appcon alpine:3.4 /bin/true
             docker cp . appcon:/proj
             docker run -e DOJOKEY=${DOJOKEY} -e DOJOIP=${DOJOIP} -e PRODNAME='Gronit' --rm  --volumes-from appcon  cyberkru/trufflehog-dojo
-            
+
+  sonar_dojo:
+    docker:
+      - image: circleci/python:3.7.4
+    steps:
+      - run:
+          docker run -e SONARTOKEN=${SONARTOKEN} \
+          -e ORGANIZATION=${SONAR_ORGANIZATION} \
+          -e COMPONENTKEY=${LENDING_KEY} \
+          -e DOJOKEY=${DOJOKEY} \
+          -e DOJOIP=${DOJOIP} \
+          -e PRODNAME=${LENDING_PRODNAME} \
+          cyberkru/sonar-report
 workflows:
   build_test_deploy:
     jobs:
-      - build_test:
+      - cred_scan:
+          context:
+          - Scan_Env
+      - sonar_dojo:
           context:
           - Scan_Env
