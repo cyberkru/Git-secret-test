@@ -1,10 +1,8 @@
 version: 2.1
 jobs:
-  cred_scan:
+  sast_scan:
     docker:
       - image: circleci/python:3.7.4
-        #user: root
-    #working_directory: /proj
     steps:
       - checkout
       - setup_remote_docker:
@@ -26,7 +24,7 @@ jobs:
 workflows:
   build_test_deploy:
     jobs:
-       - cred_scan:
+       - sast_scan:
            context:
            - Scan_Env
       
