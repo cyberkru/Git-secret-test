@@ -12,7 +12,7 @@ jobs:
       - run:
           command: |
             docker create -v /proj --name appcon alpine:3.4 /bin/true
-            docker cp $PWD appcon:/proj
+            docker cp . appcon:/proj
             docker run -e DOJOKEY=${DOJOKEY} -e DOJOIP=${DOJOIP} -e PRODNAME='Gronit' --rm  --volumes-from appcon  cyberkru/trufflehog-dojo
             
 workflows:
