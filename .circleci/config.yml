@@ -18,6 +18,7 @@ jobs:
               mkdir -p /tmp/trufflehog
               trufflehog --json --regex --entropy=False . > /tmp/trufflehog/report.json || true 
               ls -la /tmp/trufflehog
+              cat /tmp/trufflehog/report.json
       # - run:
       #       docker run -e SONARTOKEN=${SONARTOKEN} 
       #       -e ORGANIZATION=${SONAR_ORGANIZATION} 
