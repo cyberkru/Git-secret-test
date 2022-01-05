@@ -14,12 +14,10 @@ jobs:
       #       docker run -e DOJOKEY=${DOJOKEY} -e DOJOIP=${DOJOIP} -e PRODNAME='Gronit' --rm  --volumes-from appcon  cyberkru/trufflehog-dojo
       - run:
             command: |
-              docker create -v /proj --name appcon alpine:3.4 /bin/true
-              docker cp . appcon:/proj
-              docker run --rm --volumes-from appcon zricethezav/gitleaks:latest detect -s /proj -r /proj/report/report.json || true
-              mkdir tmp
-              docker cp appcon:/proj tmp/
-              ls -la tmp/proj
+              sudo pip install trufflehog
+              mkdir -p /tmp/trufflehog
+              trufflehog --json --regex --entropy=False . > /tmp/trufflehog/report.json || true 
+              ls -la /tmp/trufflehog
       # - run:
       #       docker run -e SONARTOKEN=${SONARTOKEN} 
       #       -e ORGANIZATION=${SONAR_ORGANIZATION} 
