@@ -16,7 +16,7 @@ jobs:
             command: |
               docker create -v /proj --name appcon alpine:3.4 /bin/true
               docker cp . appcon:/proj
-              docker run --rm --volumes-from appcon zricethezav/gitleaks:latest detect --source="/proj" || true
+              docker run --rm --volumes-from appcon zricethezav/gitleaks:latest detect --source="/proj" --report-path="/proj/report.json" || true
               mkdir tmp
               docker cp appcon:/proj tmp/
               ls -la tmp/proj
