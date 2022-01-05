@@ -17,8 +17,7 @@ jobs:
               docker create -v /proj --name appcon alpine:3.4 /bin/true
               docker cp . appcon:/proj
               docker run --rm --volumes-from appcon zricethezav/gitleaks:latest detect --source="/proj" || true
-              docker cp appcon:/proj .
-              ls -la /proj
+              docker ls appcon:/proj
       # - run:
       #       docker run -e SONARTOKEN=${SONARTOKEN} 
       #       -e ORGANIZATION=${SONAR_ORGANIZATION} 
