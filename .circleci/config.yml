@@ -19,7 +19,7 @@ jobs:
               docker run --rm --volumes-from appcon zricethezav/gitleaks:latest detect --source="/proj" || true
               mkdir tmp
               docker cp appcon:/proj tmp/
-              ls -la tmp
+              ls -la tmp/proj
       # - run:
       #       docker run -e SONARTOKEN=${SONARTOKEN} 
       #       -e ORGANIZATION=${SONAR_ORGANIZATION} 
