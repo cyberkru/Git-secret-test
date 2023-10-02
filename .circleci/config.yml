@@ -1,0 +1,42 @@
+version: 2.1
+jobs:
+  sast_scan:
+    docker:
+      - image: circleci/python:3.7.4
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: false
+      # - run:
+      #     command: |
+      #       docker create -v /proj --name appcon alpine:3.4 /bin/true
+      #       docker cp . appcon:/proj
+      #       docker run -e DOJOKEY=${DOJOKEY} -e DOJOURL=${DOJOURL} -e PRODNAME='Gronit' --rm  --volumes-from appcon  cyberkru/trufflehog-dojo
+      # - run:
+      #       command: |
+      #         sudo pip install trufflehog
+      #         mkdir -p /tmp/trufflehog
+      #         trufflehog --json --regex --entropy=False . > trufflehog-report.json || true
+      #         if test -f "trufflehog-report.json"; then
+      #           PRODNAME="Gronit"
+      #           PRODID=$(curl -s -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Token ${DOJOKEY}" --url "${DOJOURL}/api/v2/products/?limit=1000" | jq -c '[.results[] | select(.name | contains('\"${PRODNAME}\"'))][0] | .id')
+      #           EGID=$(curl -s -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Token $DOJOKEY" --url "${DOJOURL}/api/v2/engagements/?limit=1000" | jq -c "[.results[] | select(.product == ${PRODID})][0] | .id")
+      #           curl -X POST --header "Content-Type:multipart/form-data" --header "Authorization:Token $DOJOKEY" -F "engagement=${EGID}" -F "scan_type=Trufflehog Scan" -F 'file=@./trufflehog-report.json' --url "${DOJOURL}/api/v2/import-scan/"
+      #         fi
+              
+      - run:
+            docker run -e SONARTOKEN=${SONARTOKEN} 
+            -e ORGANIZATION=${SONAR_ORGANIZATION} 
+            -e COMPONENTKEY=${LENDING_KEY} 
+            -e DOJOKEY=${DOJOKEY} 
+            -e DOJOURL=${DOJOURL} 
+            -e PRODNAME=${LENDING_PRODNAME} 
+            cyberkru/sonar-report
+  
+workflows:
+  build_test_deploy:
+    jobs:
+       - sast_scan:
+           context:
+           - Scan_Env
+      
